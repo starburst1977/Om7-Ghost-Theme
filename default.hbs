@@ -5,7 +5,9 @@
     <meta charset="utf-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1">
+
     <link rel="stylesheet" type="text/css" href="{{asset "built/screen.css"}}" />
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.1/css/all.css" integrity="sha384-50oBUHEmvpQ+1lW4y57PTFmhCaXp0ML5d60M1M7uH2+nqUivzIebhndOJK28anvf" crossorigin="anonymous">
 
     <title>{{meta_title}}</title>
 
@@ -13,42 +15,113 @@
     {{!-- Outputs important meta data and settings, should always be in <head> --}}
 
 </head>
-<body class="{{body_class}}">
-<div class="gh-viewport">
+<body class="{{body_class}} font-inter antialiased text-gray-800 tracking-tight">
+    <div class="flex flex-col min-h-screen overflow-hidden">
 
-<header id="gh-head" class="gh-head">
-    <nav class="gh-head-inner gh-container box-border pt-8">
-        Test
-        <div class="gh-head-brand">
-            <a class="gh-head-logo" href="{{@site.url}}">
-                {{#if @site.logo}}
-                    <img src="{{@site.logo}}" alt="{{@site.title}}" />
-                {{else}}
-                    {{@site.title}}
-                {{/if}}
-            </a>
-            <a class="gh-burger" role="button">
-                <div class="gh-burger-box">
-                    <div class="gh-burger-inner"></div>
+        <header class="absolute w-full z-30">
+            <div class="max-w-6xl mx-auto px-4 sm:px-6">
+                <div class="flex items-center justify-between h-20">
+
+                    <!-- Site branding -->
+                    <div class="flex-shrink-0 mr-4">
+                        <!-- Logo -->
+                        <a class="block" href="index.html" aria-label="Om7">
+                            <img class="w-12 h-8 fill-current text-purple-600" src="/assets/om7-logo.svg">
+                        </a>
+                    </div>
+
+                    <!-- Desktop navigation -->
+                    <nav class="hidden md:flex md:flex-grow">
+
+                        <!-- Desktop sign in links -->
+                        {{navigation}}
+
+                    </nav>
+
+                    <!-- Mobile menu -->
+                    <div class="md:hidden" x-data="{ expanded: false }">
+
+                        <!-- Hamburger button -->
+                        <button
+                            class="hamburger"
+                            :class="{ 'active': expanded }"
+                            @click.stop="expanded = !expanded"
+                            aria-controls="mobile-nav"
+                            :aria-expanded="expanded"
+                        >
+                            <span class="sr-only">Menu</span>
+                            <svg class="w-6 h-6 fill-current text-gray-300 hover:text-gray-200 transition duration-150 ease-in-out" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                                <rect y="4" width="24" height="2" rx="1" />
+                                <rect y="11" width="24" height="2" rx="1" />
+                                <rect y="18" width="24" height="2" rx="1" />
+                            </svg>
+                        </button>
+
+                        <!-- Mobile navigation -->
+                        <nav
+                            id="mobile-nav"
+                            class="absolute top-full z-20 left-0 w-full px-4 sm:px-6 overflow-hidden transition-all duration-300 ease-in-out"
+                            x-ref="mobileNav"
+                            :style="expanded ? 'max-height: ' + $refs.mobileNav.scrollHeight + 'px; opacity: 1' : 'max-height: 0; opacity: .8'"
+                            @click.away="expanded = false"
+                            @keydown.escape.window="expanded = false"
+                            x-cloak
+                        >
+                            <ul class="bg-gray-800 px-4 py-2">
+                                <li>
+                                    <a class="flex text-gray-300 hover:text-gray-200 py-2" href="help.html">Häufige Fragen</a>
+                                </li>
+                                <li>
+                                    <a class="flex text-gray-300 hover:text-gray-200 py-2" href="partner.html">Partner</a>
+                                </li>
+                                <li>
+                                    <a class="flex text-gray-300 hover:text-gray-200 py-2" href="about.html">Über uns</a>
+                                </li>
+                                <li>
+                                    <a class="flex text-gray-300 hover:text-gray-200 py-2" href="contact.html">Kontakt</a>
+                                </li>
+                            </ul>
+                        </nav>
+
+                    </div>
+
                 </div>
-            </a>
-        </div>
-        <div class="gh-head-menu">
-            {{navigation}}
-        </div>
-        <div class="gh-head-actions">
-            <div class="gh-head-actions-list">
-                {{#if @site.facebook}}
-                <a href="{{facebook_url @site.facebook}}" title="Facebook" target="_blank" rel="noopener">{{> "icons/facebook"}}</a>
-                {{/if}}
-                {{#if @site.twitter}}
-                <a href="{{twitter_url @site.twitter}}" title="Twitter" target="_blank" rel="noopener">{{> "icons/twitter"}}</a>
-                {{/if}}
-                <a href="https://feedly.com/i/subscription/feed/{{@site.url}}/rss/" title="RSS" target="_blank" rel="noopener">{{> "icons/rss"}}</a>
             </div>
-        </div>
-    </nav>
-</header>
+        </header>
+
+        <!--<header id="gh-head" class="gh-head">
+            <nav class="gh-head-inner gh-container box-border">
+
+                <div class="gh-head-brand">
+                    <a class="gh-head-logo" href="{{@site.url}}">
+                        {{#if @site.logo}}
+                            <img src="{{@site.logo}}" alt="{{@site.title}}" />
+                        {{else}}
+                            {{@site.title}}
+                        {{/if}}
+                    </a>
+                    <a class="gh-burger" role="button">
+                        <div class="gh-burger-box">
+                            <div class="gh-burger-inner"></div>
+                        </div>
+                    </a>
+                </div>
+                <div class="gh-head-menu">
+                    {{navigation}}
+                </div>
+                <div class="gh-head-actions">
+                    <div class="gh-head-actions-list">
+                        {{#if @site.facebook}}
+                        <a href="{{facebook_url @site.facebook}}" title="Facebook" target="_blank" rel="noopener">{{> "icons/facebook"}}</a>
+                        {{/if}}
+                        {{#if @site.twitter}}
+                        <a href="{{twitter_url @site.twitter}}" title="Twitter" target="_blank" rel="noopener">{{> "icons/twitter"}}</a>
+                        {{/if}}
+                        <a href="https://feedly.com/i/subscription/feed/{{@site.url}}/rss/" title="RSS" target="_blank" rel="noopener">{{> "icons/rss"}}</a>
+                    </div>
+                </div>
+            </nav>
+        </header>-->
 
 <main class="gh-main">
 

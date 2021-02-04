@@ -1,0 +1,9 @@
+<ul class="flex flex-grow justify-end flex-wrap items-center">
+    {{#foreach navigation}}
+        <li class="{{link_class for=(url) class=(concat "nav-" slug)}}">
+            <a class="text-gray-600 hover:text-purple-600 px-4 py-2 flex items-center transition duration-150 ease-in-out" href="{{url absolute="true"}}">
+                {{label}}
+            </a>
+        </li>
+    {{/foreach}}
+</ul>

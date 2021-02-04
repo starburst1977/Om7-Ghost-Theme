@@ -32,6 +32,14 @@ production stylesheet in assets/built/screen.css using: gulp dev
 /* ---------------------------------------------------------- */
 
 html,
+body {
+    font-size: 16px;
+    font-family: "Inter", -apple-system, BlinkMacSystemFont, "Segoe UI",
+        "Roboto", "Oxygen", "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans",
+        "Helvetica Neue", sans-serif;
+}
+
+html,
 .gh-viewport {
     display: flex;
     flex-direction: column;
@@ -85,6 +93,37 @@ html,
 
 /* Index
 /* ---------------------------------------------------------- */
+
+.h1 {
+    font-weight: 800;
+    line-height: 1.25;
+    letter-spacing: -0.02em;
+    font-size: 3.25rem;
+}
+
+.icon-list {
+    background-position: center;
+    background-size: 100%;
+    background-repeat: no-repeat;
+    background-image: url("/assets/om7-icon-bg-1.svg");
+    padding: 1rem;
+    width: 6rem;
+    text-align: center;
+    line-height: 4rem;
+    height: 6rem;
+    margin-bottom: 1rem;
+}
+.icon-list.green {
+    background-image: url("/assets/om7-icon-bg-2.svg");
+}
+
+.icon-list.purple {
+    background-image: url("/assets/om7-icon-bg-3.svg");
+}
+.icon-list i {
+    color: #fff;
+    font-size: 1.5rem;
+}
 
 .gh-card:not(:first-child) {
     margin: 8vmin auto 0;
